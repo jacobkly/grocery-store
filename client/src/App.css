@@ -1,0 +1,11 @@
+#outer {
+  background-color: white;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#test {
+  margin: 0;
+  font-size: 5rem;
+  color: black;
+}
