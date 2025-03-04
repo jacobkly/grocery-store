@@ -1,6 +1,8 @@
 import express, { Request, Response } from "express";
 import cors from 'cors';
 import dotenv from 'dotenv';
+import typicalRoutes from './routes/typicalRoutes';
+import analyticalRoutes from './routes/analyticalRoutes';
 
 dotenv.config();
 
@@ -15,6 +17,9 @@ app.use(express.json());
 app.get("/", (req: Request, res: Response): void => {
     res.json({ message: "Hello, world! Server is running." });
 });
+
+app.use('/typical', typicalRoutes);
+app.use('/analytical', analyticalRoutes);
 
 // start server
 app.listen(PORT, () => {
