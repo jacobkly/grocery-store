@@ -13,11 +13,7 @@ const PORT: number = Number(process.env.SERVER_PORT) || 3000;
 app.use(cors());
 app.use(express.json());
 
-// routes
-app.get("/", (req: Request, res: Response): void => {
-    res.json({ message: "Hello, world! Server is running." });
-});
-
+// routes for typical scenario and analytical queries
 app.use('/typical', typicalRoutes);
 app.use('/analytical', analyticalRoutes);
 
