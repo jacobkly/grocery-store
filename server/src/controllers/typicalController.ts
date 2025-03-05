@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
-import { pool, connectDB } from '../config/db';
+import { pool } from '../config/db';
 
 export const test = async (req: Request, res: Response): Promise<void> => {
     try {
         if (!pool) {
             res.status(500).json({ message: 'Database connection is not initialized' });
-            await connectDB();
             return;
         }
 

@@ -7,6 +7,7 @@ import analyticalRoutes from './routes/analyticalRoutes';
 
 dotenv.config();
 
+// server initialization
 const app = express();
 const PORT: number = Number(process.env.SERVER_PORT) || 3000;
 

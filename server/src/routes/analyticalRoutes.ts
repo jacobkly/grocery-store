@@ -15,7 +15,8 @@ router.get('/cashiers/fastest', analyticalController.fastestCashier);
 router.get('/reviews/trend', analyticalController.reviewsTrend);
 
 // 4.
-router.get('/warehouse-workers/certified', analyticalController.certifiedWarehouseWorkers);
+router.get('warehouse-workers/certified',
+    analyticalController.certifiedMorningWarehouseWorkers);
 
 // 5.
 router.get('/customers/spending-behavior', analyticalController.customerSpendingBehavior);
