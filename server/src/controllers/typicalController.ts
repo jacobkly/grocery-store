@@ -351,7 +351,7 @@ export const stockerAssignments = async (req: Request, res: Response): Promise<v
         }
 
         const result = await pool.request().query(`
-            SELECT e.EmployeeID, e.FirstName, e.LastName, s.AssignedAisle, i.ItemName
+            SELECT e.EmployeeID, e.FirstName, e.LastName, s.AssignedAisle
             FROM Employees e
             JOIN Stockers s ON e.EmployeeID = s.EmployeeID
         `);
