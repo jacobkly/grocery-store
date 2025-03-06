@@ -9,10 +9,10 @@ const instructions: string[] = [
   independently.
   `,
   `
-  To begin testing, click any of the buttons. Note that typical scenarios 1, 2, 3a, and 4a require 
-  user input. Please refer to the instructions below for proper testing. (The project description 
-  did not mention handling edge cases, and unfortunately, I didn't have time to implement them due 
-  to a challenging couple of weeks.)
+  To begin testing, click any of the buttons. Note that typical scenarios 1, 2, 3a, 4a and analytical 
+  query 3 require user input. Please refer to the instructions below for proper testing (the project 
+  description did not mention handling edge cases, and unfortunately, I didn't have time to implement 
+  them due to a challenging couple of weeks).
   `,
   `
   NOTE: 'Morning', 'Evening', and 'Night' represent employee shift timings. Based on the script, 
