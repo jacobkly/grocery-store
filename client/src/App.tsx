@@ -65,10 +65,7 @@ export default function App() {
         body: selectedOption.method === "POST" ? JSON.stringify(formData) : undefined,
       });
 
-      console.log('form data:', JSON.stringify(formData))
-
       const data = await response.json();
-      console.log('server output data:', data)
 
       if (selectedOption.method === "POST") {
         if (response.status === 201 && data) {
