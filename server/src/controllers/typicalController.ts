@@ -1,25 +1,6 @@
 import { Request, Response } from 'express';
 import { pool } from '../config/db';
 
-export const test = async (req: Request, res: Response): Promise<void> => {
-    try {
-        if (!pool) {
-            res.status(500).json({ message: 'Database connection is not initialized' });
-            return;
-        }
-
-        const result = await pool.request().query('SELECT * FROM Reviews');
-
-        res.status(200).json({
-            message: 'Data fetched successfully',
-            data: result.recordset,
-        });
-    } catch (error: any) {
-        console.error('Error fetching data:', error);
-        res.status(500).json({ message: "Test database query failed", error: error.message });
-    }
-};
-
 /*
 A certain department manager can register a new employee in the grocery store system. 
 The new employee must fill out their information and be assigned an employee role. The 
@@ -98,16 +79,21 @@ export const registerEmployee = async (req: Request, res: Response): Promise<voi
         result = await pool.request()
             .input('employeeID', newEmployeeID)
             .query(`
-                SELECT e.EmployeeID, e.FirstName, e.LastName, e.ShiftTiming, r.RoleName, r.Description, es.Salary
+                SELECT TOP 1 
+                    e.EmployeeID, 
+                    e.FirstName, 
+                    e.LastName, 
+                    e.ShiftTiming, 
+                    r.RoleName, 
+                    r.Description, 
+                    es.Salary
                 FROM Employees e
                 JOIN Roles r ON e.RoleID = r.RoleID
                 JOIN EmployeeSalaries es ON e.EmployeeID = es.EmployeeID
                 WHERE e.EmployeeID = @employeeID
             `);
 
-        const employee = result.recordset[0];
-
-        res.status(201).json({ employeeInformation: employee });
+        res.status(201).json({ employeeInformation: result.recordset });
     } catch (error: any) {
         console.error('Error registering employee:', error);
         res.status(500).json({ message: 'Error registering employee', error: error.message });
@@ -260,9 +246,10 @@ export const createStockOrder = async (req: Request, res: Response): Promise<voi
                 FROM StockOrders so 
                 JOIN Suppliers s ON so.SupplierID = s.SupplierID
                 JOIN SalesPeople sp ON s.SupplierID = sp.SupplierID
-                JOIN SalesPhoneNumber spn ON sp.SalesPersonID = spn.SalesPersonID
+                JOIN SalesPhoneNumbers spn ON sp.SalesPersonID = spn.SalesPersonID
                 WHERE so.StockOrderID = @stockOrderID
-            `);
+                ORDER BY spn.PhoneNumber 
+    `);
 
         res.status(201).json({ stockOrderStatus: stockOrderStatusResult.recordset });
     } catch (error: any) {
@@ -298,7 +285,7 @@ export const submitReview = async (req: Request, res: Response): Promise<void> =
                 VALUES (@reviewText, @numStars, GETDATE(), @customerID)
             `);
 
-        res.status(201).json({ message: 'Review submitted successfully' });
+        res.status(201);
     } catch (error: any) {
         console.error('Error submitting customer review:', error);
         res.status(500).json({ message: 'Error submitting customer review', error: error.message });

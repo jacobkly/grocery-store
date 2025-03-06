@@ -1,0 +1,30 @@
+[
+    {
+        "name": "1. High-Value Customers",
+        "route": "analytical/customers/high-value"
+    },
+    {
+        "name": "2. Fastest Cashier",
+        "route": "analytical/cashiers/fastest"
+    },
+    {
+        "name": "3. Review Trends",
+        "route": "analytical/reviews/trend",
+        "method": "POST",
+        "fields": [
+            "startDateTime"
+        ]
+    },
+    {
+        "name": "4. Certified Morning Warehouse Workers",
+        "route": "analytical/warehouse-workers/certified"
+    },
+    {
+        "name": "5. Customer Spending Behavior",
+        "route": "analytical/customers/spending-behavior"
+    },
+    {
+        "name": "6. Low Inventory Products",
+        "route": "analytical/products/low-inventory"
+    }
+]

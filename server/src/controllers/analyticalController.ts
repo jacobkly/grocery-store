@@ -169,7 +169,7 @@ export const lowInventoryProducts = async (req: Request, res: Response): Promise
         }
 
         const lowInventoryProductsResult = await pool.request().query(`
-            SELECT i.ProductID, p.[Name], i.Quantity, c.[Name], i.LastRestockDate
+            SELECT i.ProductID, p.[Name] AS ProductName, i.Quantity, c.[Name] AS CategoryName, i.LastRestockDate
             FROM Inventory i
             JOIN Products p ON i.ProductID = p.ProductID
             JOIN Categories c ON p.CategoryID = c.CategoryID

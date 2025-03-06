@@ -1,0 +1,80 @@
+[
+    {
+        "name": "1. Register Employee",
+        "route": "typical/employees/register",
+        "method": "POST",
+        "fields": [
+            "firstName",
+            "lastName",
+            "shiftTiming",
+            "roleName",
+            "roleAssignments"
+        ]
+    },
+    {
+        "name": "2. Process Receipts",
+        "route": "typical/receipts/process",
+        "method": "POST",
+        "fields": [
+            "numItems",
+            "subtotal",
+            "tax",
+            "total",
+            "transactionTime",
+            "paymentType",
+            "registerNumber",
+            "employeeID",
+            "customerID",
+            "discountID"
+        ]
+    },
+    {
+        "name": "3a. Create Stock Order",
+        "route": "typical/stock-order/create",
+        "method": "POST",
+        "fields": [
+            "invoicePDF",
+            "subtotal",
+            "tax",
+            "total",
+            "paymentType",
+            "employeeID",
+            "supplierID"
+        ]
+    },
+    {
+        "name": "3b. Check Stock",
+        "route": "typical/stock-order/check",
+        "method": "GET"
+    },
+    {
+        "name": "4a. Submit Review",
+        "route": "typical/reviews/submit",
+        "method": "POST",
+        "fields": [
+            "reviewText",
+            "numStars",
+            "customerID"
+        ]
+    },
+    {
+        "name": "4b. Review Statistics",
+        "route": "typical/reviews/statistics",
+        "method": "GET"
+    },
+    {
+        "name": "5. Stocker Assignments",
+        "route": "typical/stockers/assignments",
+        "method": "GET"
+    },
+    {
+        "name": "6. Employee Shifts",
+        "route": "typical/employees/shift",
+        "method": "GET"
+    },
+    {
+        "name": "7. Delivery Orders",
+        "route": "typical/delivery/orders",
+        "method": "GET"
+    }
+]

@@ -3,8 +3,6 @@ import * as typicalController from '../controllers/typicalController';
 
 const router = Router();
 
-router.get('/test', typicalController.test);
-
 /* Seven total typical scenerio queries. */
 
 // 1.

@@ -12,7 +12,7 @@ router.get('/customers/high-value', analyticalController.highValueCustomers);
 router.get('/cashiers/fastest', analyticalController.fastestCashier);
 
 // 3.
-router.get('/reviews/trend', analyticalController.reviewsTrend);
+router.post('/reviews/trend', analyticalController.reviewsTrend);
 
 // 4.
 router.get('/warehouse-workers/certified',
