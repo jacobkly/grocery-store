@@ -36,7 +36,7 @@ You will need to configure the database in **MS SQL Server**. Ensure your MS SQL
 
 ### 3. **Configure the `.env` File**
 
-In the server directory of the project, create a `.env` file with the following content to configure the database connection:
+In the server directory of the project, create a `.env` file with the following content to configure the database connection using the SQL Server Authentication method on SQL Server Management Studio for Microsoft SQL Server:
 
 ```plaintext
 PORT=3000
