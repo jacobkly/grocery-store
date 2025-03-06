@@ -117,7 +117,7 @@ export const processReceipts = async (req: Request, res: Response): Promise<void
             registerNumber, employeeID, customerID, discountID
         } = req.body;
 
-        await pool.request()
+        const result = await pool.request()
             .input('numItems', numItems)
             .input('subtotal', subtotal)
             .input('tax', tax)
@@ -132,15 +132,20 @@ export const processReceipts = async (req: Request, res: Response): Promise<void
                 INSERT INTO Receipts 
                     (NumItems, SubTotal, Tax, Total, TransactionTime, PaymentType, 
                      RegisterNumber, EmployeeID, CustomerID, DiscountID)
+                OUTPUT INSERTED.ReceiptID
                 VALUES 
                     (@numItems, @subtotal, @tax, @total, @transactionTime, @paymentType, 
                      @registerNumber, @employeeID, @customerID, @discountID)
             `);
 
-        const newReceiptResult = await pool.request().query(`
-            SELECT TOP 1 *
+        const receiptID = result.recordset[0].ReceiptID;
+
+        const newReceiptResult = await pool.request()
+            .input('receiptID', receiptID)
+            .query(`
+            SELECT *
             FROM Receipts
-            ORDER BY TransactionTime DESC
+            WHERE ReceiptID = @receiptID
         `);
 
         res.status(201).json({
@@ -251,6 +256,11 @@ export const createStockOrder = async (req: Request, res: Response): Promise<voi
                 ORDER BY spn.PhoneNumber 
     `);
 
+        for (let i = 0; i < stockOrderStatusResult.recordset.length; i++) {
+            stockOrderStatusResult.recordset[i].DeliveryStatus =
+                stockOrderStatusResult.recordset[i].DeliveryStatus ? 'Delivered' : 'Not Delivered';
+        }
+
         res.status(201).json({ stockOrderStatus: stockOrderStatusResult.recordset });
     } catch (error: any) {
         console.error('Error creating stock order:', error);
@@ -342,6 +352,12 @@ export const stockerAssignments = async (req: Request, res: Response): Promise<v
             FROM Employees e
             JOIN Stockers s ON e.EmployeeID = s.EmployeeID
         `);
+
+        for (let i = 0; i < result.recordset.length; i++) {
+            if (result.recordset[i].AssignedAisle === null) {
+                result.recordset[i].AssignedAisle = 'New stocker in training.';
+            }
+        }
 
         res.status(200).json({ stockerAssignments: result.recordset });
     } catch (error: any) {

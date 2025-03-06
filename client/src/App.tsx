@@ -18,8 +18,8 @@ const instructions: string[] = [
   NOTE: 'Morning', 'Evening', and 'Night' represent employee shift timings. Based on the script, 
   customer IDs range from 1-5, employee IDs from 1-8, discount IDs from 1-4, and supplier IDs from 
   1-4. For analytical query 3, the expected date-time format is '2025-02-22 00:00:00.000'. The 
-  review data inserted corresponds to the week prior to the project submission. The different role
-  names are 'Manager', 'Cashier', 'Driver', 'Warehouse Worker', 'Stocker', 'Janitor'.
+  review data inserted corresponds to the past two weeks prior to the project submission. The 
+  different role names are 'Manager', 'Cashier', 'Driver', 'Warehouse Worker', 'Stocker', 'Janitor'.
   `
 ];
 

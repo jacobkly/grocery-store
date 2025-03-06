@@ -21,7 +21,7 @@
 }
 
 #instruction-items {
-  width: 60%;
+  width: 50%;
 }
 
 .content-container {
@@ -47,12 +47,12 @@
 
 .output-box {
   margin-top: 2rem;
-  width: 100%;
+  width: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #1e1e1e;
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }

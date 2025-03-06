@@ -38,8 +38,12 @@ export const fastestCashier = async (req: Request, res: Response): Promise<void>
 
         const fastestCashiersResult = await pool.request().query(`
             WITH CashierTransactionTimes AS (
-	            SELECT EmployeeID, Min(TransactionTime) AS MinTime, Max(TransactionTime) AS MaxTime,
-			        SUM(NumItems) AS TotalItems, COUNT(*) AS TotalNumTransactions
+	            SELECT 
+                    EmployeeID, 
+                    Min(TransactionTime) AS MinTime, 
+                    Max(TransactionTime) AS MaxTime,
+			        SUM(NumItems) AS TotalItems, 
+                    COUNT(*) AS TotalNumTransactions
 	            FROM Receipts
 	            WHERE RegisterNumber IS NOT NULL
 	            GROUP BY EmployeeID
@@ -49,10 +53,16 @@ export const fastestCashier = async (req: Request, res: Response): Promise<void>
                 DATEDIFF(MINUTE, MinTime, MaxTime) AS TotalMinutes, 
                 TotalItems, 
                 TotalNumTransactions, 
-		        (TotalItems * 1.0) / DATEDIFF(HOUR, MinTime, MaxTime) AS AvgItemsPerHour
+                (TotalItems * 1.0) / NULLIF(DATEDIFF(HOUR, MinTime, MaxTime), 0) AS AvgItemsPerHour
             FROM CashierTransactionTimes
             ORDER BY AvgItemsPerHour DESC
         `);
+
+        for (let i = 0; i < fastestCashiersResult.recordset.length; i++) {
+            if (fastestCashiersResult.recordset[i].AvgItemsPerHour === null) {
+                fastestCashiersResult.recordset[i].AvgItemsPerHour = 0;
+            }
+        }
 
         res.status(200).json({ fastestCashiers: fastestCashiersResult.recordset });
     } catch (error: any) {
@@ -90,10 +100,10 @@ export const reviewsTrend = async (req: Request, res: Response): Promise<void> =
                 DATEPART(YEAR, [DateTime]), 
                 DATEPART(MONTH, [DateTime]), 
                 DATEPART(DAY, [DateTime])
-            ORDER BY Year, Month, Day;
+            ORDER BY Year DESC, Month DESC, Day DESC;
         `);
 
-        res.status(200).json({ reviewsTrend: reviewsTrendResult.recordset });
+        res.status(201).json({ reviewsTrend: reviewsTrendResult.recordset });
     } catch (error: any) {
         console.error('Error fetching reviews trend:', error);
         res.status(500).json({ message: "Error fetching reviews trend", error: error.message });
@@ -138,20 +148,25 @@ export const customerSpendingBehavior = async (req: Request, res: Response): Pro
 
         const customerSpendingBehaviorResult = await pool.request().query(`
             SELECT 
-                Receipts.CustomerID, 
-                Customers.FirstName, 
-                Customers.LastName, 
+                r.CustomerID, 
+                c.FirstName, 
+                c.LastName, 
                 SUM(Total) AS TotalSpending, 
-                Customers.MemberStatus
-            FROM Receipts
-            JOIN Customers ON Receipts.CustomerID = Customers.CustomerID
+                c.MemberStatus
+            FROM Receipts r
+            JOIN Customers c ON r.CustomerID = c.CustomerID
             GROUP BY 
-                Receipts.CustomerID, 
-                Customers.FirstName, 
-                Customers.LastName, 
-                Customers.MemberStatus
+                r.CustomerID, 
+                c.FirstName, 
+                c.LastName, 
+                c.MemberStatus
             ORDER BY TotalSpending DESC;
         `);
+
+        for (let i = 0; i < customerSpendingBehaviorResult.recordset.length; i++) {
+            customerSpendingBehaviorResult.recordset[i].MemberStatus =
+                customerSpendingBehaviorResult.recordset[i].MemberStatus ? 'Yes' : 'No';
+        }
 
         res.status(200).json({ customerSpendingBehavior: customerSpendingBehaviorResult.recordset });
     } catch (error: any) {

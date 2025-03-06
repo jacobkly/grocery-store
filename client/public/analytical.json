@@ -1,11 +1,13 @@
 [
     {
         "name": "1. High-Value Customers",
-        "route": "analytical/customers/high-value"
+        "route": "analytical/customers/high-value",
+        "method": "GET"
     },
     {
         "name": "2. Fastest Cashier",
-        "route": "analytical/cashiers/fastest"
+        "route": "analytical/cashiers/fastest",
+        "method": "GET"
     },
     {
         "name": "3. Review Trends",
@@ -17,14 +19,17 @@
     },
     {
         "name": "4. Certified Morning Warehouse Workers",
-        "route": "analytical/warehouse-workers/certified"
+        "route": "analytical/warehouse-workers/certified",
+        "method": "GET"
     },
     {
         "name": "5. Customer Spending Behavior",
-        "route": "analytical/customers/spending-behavior"
+        "route": "analytical/customers/spending-behavior",
+        "method": "GET"
     },
     {
         "name": "6. Low Inventory Products",
-        "route": "analytical/products/low-inventory"
+        "route": "analytical/products/low-inventory",
+        "method": "GET"
     }
 ]
