@@ -36,7 +36,7 @@ You will need to configure the database in **MS SQL Server**. Ensure your MS SQL
 
 ### 3. **Configure the `.env` File**
 
-In the server directory of the project, create a `.env` file with the following content to configure the database connection using the SQL Server Authentication method on SQL Server Management Studio for Microsoft SQL Server:
+In the server directory of the project, create a `.env` file with the following content below to configure the database connection using the SQL Server Authentication method on SQL Server Management Studio for Microsoft SQL Server. 
 
 ```plaintext
 PORT=3000
@@ -47,6 +47,13 @@ DB_SERVER=<your_db_server>
 DB_DATABASE='klymenko_chapkin_jacob_anthony_db'
 DB_PORT=1433
 ```
+
+**Useful Information to Connect Server to Database:**
+- Create a SQL Server user with a password using SQL Server Authentication and grant it access to `klymenko_chapkin_jacob_anthony_db` (this will be the DB_USER and DB_PASSWORD).  
+- Assign the user the necessary permissions to create or use the database.  
+- Enable **TCP/IP** under **SQL Server Configuration Manager > SQL Server Network Configuration > Protocols for MSSQLServer**.  
+- Restart **SQL Server (MSSQLServer)** under **SQL Server Services** to apply changes.  
+
 
 ### 4. **Install Dependencies**
 
