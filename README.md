@@ -1,7 +1,7 @@
 
 # Grocery Store Management System
 
-This project is a **Grocery Store Management System** for the final project submission of TCSS 445 at the University of Washington Tacoma. The system uses a **React frontend** with **TypeScript** and a **Node.js backend**. The database is set up with **MS SQL Server** to store data.
+This project is a **Grocery Store Management System** using a **React** frontend with **TypeScript** and a **Node.js** backend. The database is set up with **MS SQL Server**.
 
 ## Prerequisites
 
